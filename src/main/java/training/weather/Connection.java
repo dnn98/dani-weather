@@ -15,9 +15,16 @@ public class Connection {
 		
 	}
 	
-	public String connect(String query) throws IOException {
+	public String connectCityId(String param) throws IOException {
 		HttpRequestFactory rf = new NetHttpTransport().createRequestFactory();
-		HttpRequest req = rf.buildGetRequest(new GenericUrl(query));
+		HttpRequest req = rf.buildGetRequest(new GenericUrl("https://www.metaweather.com/api/location/search/?query="+param));
+		String r = req.execute().parseAsString();
+		return r;
+	}
+	
+	public String connectCityWeather(String param) throws IOException {
+		HttpRequestFactory rf = new NetHttpTransport().createRequestFactory();
+		HttpRequest req = rf.buildGetRequest(new GenericUrl("https://www.metaweather.com/api/location/"+param));
 		String r = req.execute().parseAsString();
 		return r;
 	}
